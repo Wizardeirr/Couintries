@@ -49,6 +49,7 @@ class UlkelerFragment : Fragment() {
             countries?.let {
                 recyclerView.visibility = View.VISIBLE
                 recyclerAdapterOfCountries.updateCountryList(it)
+
             }
         })
 
@@ -56,6 +57,8 @@ class UlkelerFragment : Fragment() {
             it?.let {
                 if (it){
                     progress_bar.visibility=View.VISIBLE
+                    recyclerView.visibility=View.GONE
+                    progress_bar.visibility=View.GONE
                 }else{
                     progress_bar.visibility=View.GONE
                 }
@@ -65,10 +68,9 @@ class UlkelerFragment : Fragment() {
             it?.let {
                 if (it){
                     error_text.visibility=View.VISIBLE
-                    recyclerView.visibility=View.GONE
-                    progress_bar.visibility=View.GONE
+
                 }else{
-                    error_text.visibility=View.VISIBLE
+                    error_text.visibility=View.GONE
                 }
             }
         })
