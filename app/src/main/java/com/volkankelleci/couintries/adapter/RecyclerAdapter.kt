@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.volkankelleci.couintries.Model.Country
 import com.volkankelleci.couintries.R
 import kotlinx.android.synthetic.main.fragment_ulkeler_detay.view.*
+import kotlinx.android.synthetic.main.recycler_gorunumu.view.*
 
 class RecyclerAdapter(val CountryList: ArrayList<Country>) :
     RecyclerView.Adapter<RecyclerAdapter.CountryViewHolder>() {
@@ -21,8 +22,9 @@ class RecyclerAdapter(val CountryList: ArrayList<Country>) :
     }
 
     override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
-        holder.itemView.name_text.text = CountryList.get(position).countryName
-        holder.itemView.region_text.text = CountryList.get(position).countryRegion
+        holder.itemView.countrynameinrecycler.text = CountryList.get(position).countryName
+        holder.itemView.regionnameinrecycler.text = CountryList.get(position).countryRegion
+
 
         //Görsel Eklenecek
     }

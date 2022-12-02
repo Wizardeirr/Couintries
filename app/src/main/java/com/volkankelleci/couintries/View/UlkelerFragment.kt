@@ -1,10 +1,10 @@
 package com.volkankelleci.couintries.View
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +12,6 @@ import com.volkankelleci.couintries.R
 import com.volkankelleci.couintries.ViewModel.UlkelerFragmentViewModel
 import com.volkankelleci.couintries.adapter.RecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_ulkeler.*
-import kotlinx.android.synthetic.main.fragment_ulkeler.view.*
 
 class UlkelerFragment : Fragment() {
 
@@ -33,46 +32,48 @@ class UlkelerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        super.onViewCreated(view, savedInstanceState)
+
         viewModel = ViewModelProviders.of(this).get(UlkelerFragmentViewModel::class.java)
         viewModel.refreshData()
 
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = recyclerAdapterOfCountries
 
-        super.onViewCreated(view, savedInstanceState)
-        observeLiveData()
-    }
 
+        observeLiveData()
+
+    }
     fun observeLiveData() {
-        viewModel.countries.observe(viewLifecycleOwner, Observer {
-            it?.let {
+        viewModel.countries.observe(viewLifecycleOwner, Observer {countries->
+            countries?.let {
                 recyclerView.visibility = View.VISIBLE
                 recyclerAdapterOfCountries.updateCountryList(it)
             }
         })
-        viewModel.countryError.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                if (it) {
-                    error_text.visibility = View.VISIBLE
-                } else {
-                    recyclerView.visibility = View.GONE
-                    progress_bar.visibility=View.GONE
-                }
-            }
 
-
-        })
         viewModel.countryLoading.observe(viewLifecycleOwner, Observer {
             it?.let {
                 if (it){
-                    recyclerView.progress_bar.visibility=View.VISIBLE
+                    progress_bar.visibility=View.VISIBLE
                 }else{
                     progress_bar.visibility=View.GONE
-                    error_text.visibility = View.GONE
                 }
             }
         })
-    }
-
-
+        viewModel.countryError.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                if (it){
+                    error_text.visibility=View.VISIBLE
+                    recyclerView.visibility=View.GONE
+                    progress_bar.visibility=View.GONE
+                }else{
+                    error_text.visibility=View.VISIBLE
+                }
+            }
+        })
+        }
 }
+
+
+

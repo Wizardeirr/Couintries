@@ -34,6 +34,8 @@
             app:layout_constraintTop_toTopOf="parent" />
         <TextView
             android:id="@+id/error_text"
+            android:gravity="center"
+            android:text="HATA, LÜTFEN İNTERNETİNİZ KONTROL EDİNİZ"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"

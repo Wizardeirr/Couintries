@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="150dp"
     android:orientation="horizontal">
     <ImageView
-        android:id="@+id/country_image"
+        android:id="@+id/countryimageinrecycler"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3"
@@ -24,14 +23,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TESTTEST"
-            android:id="@+id/country_name"
+            android:id="@+id/countrynameinrecycler"
             android:textStyle="bold"
             android:textSize="20dp"
             android:layout_margin="10dp">
 
         </TextView>
         <TextView
-            android:id="@+id/region_name"
+            android:id="@+id/regionnameinrecycler"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Region"
@@ -42,5 +41,3 @@
 
 
 </LinearLayout>
-
-</layout>
