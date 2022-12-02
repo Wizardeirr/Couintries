@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ulkeler_navigation"
+    app:startDestination="@id/ulkelerFragment">
+    <fragment
+        android:id="@+id/ulkelerFragment"
+        android:name="com.volkankelleci.couintries.View.UlkelerFragment"
+        android:label="UlkelerFragment" >
+        <action
+            android:id="@+id/action_ulkelerFragment2_to_ulkelerDetayFragment2"
+            app:destination="@id/ulkelerDetayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ulkelerDetayFragment"
+        android:name="com.volkankelleci.couintries.View.UlkelerDetayFragment"
+        android:label="UlkelerDetayFragment" />
+</navigation>
