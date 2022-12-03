@@ -40,13 +40,14 @@ class UlkelerFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = recyclerAdapterOfCountries
 
-        swipe_refresh_layout.setOnRefreshListener {
 
-            progress_bar.visibility=View.VISIBLE
+        swipe_refresh_layout.setOnRefreshListener {
+            recyclerView.visibility=View.VISIBLE
+            progress_bar.visibility=View.GONE
             error_text.visibility=View.GONE
-            recyclerView.visibility=View.GONE
             viewModel.refreshData()
             swipe_refresh_layout.isRefreshing=false
+
         }
 
         observeLiveData()
