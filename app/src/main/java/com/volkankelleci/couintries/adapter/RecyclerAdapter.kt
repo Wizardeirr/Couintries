@@ -3,9 +3,12 @@ package com.volkankelleci.couintries.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.volkankelleci.couintries.Model.Country
 import com.volkankelleci.couintries.R
+import com.volkankelleci.couintries.View.UlkelerFragment
+import com.volkankelleci.couintries.View.UlkelerFragmentDirections
 import kotlinx.android.synthetic.main.fragment_ulkeler_detay.view.*
 import kotlinx.android.synthetic.main.recycler_gorunumu.view.*
 
@@ -24,6 +27,12 @@ class RecyclerAdapter(val CountryList: ArrayList<Country>) :
     override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
         holder.itemView.countrynameinrecycler.text = CountryList.get(position).countryName
         holder.itemView.regionnameinrecycler.text = CountryList.get(position).countryRegion
+        holder.itemView.setOnClickListener{
+            val action=UlkelerFragmentDirections.actionUlkelerFragmentToUlkelerDetayFragment()
+            Navigation.findNavController(it).navigate(action)
+        }
+
+
 
 
         //Görsel Eklenecek
