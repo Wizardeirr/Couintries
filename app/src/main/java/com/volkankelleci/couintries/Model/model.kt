@@ -5,12 +5,12 @@ import com.google.gson.annotations.SerializedName
 
 @Entity
 data class Country(
-    val countryName: String?,
-    val countryCapital: String?,
-    val countryRegion: String?,
-    val countryCurrency: String?,
-    val imageURL: String?,
-    val countryLanguage: String?
+    @SerializedName("name") val countryName: String?,
+    @SerializedName("capital") val countryCapital: String?,
+    @SerializedName("region") val countryRegion: String?,
+    @SerializedName("currency") val countryCurrency: String?,
+    @SerializedName("flag") val imageURL: String?,
+    @SerializedName("language") val countryLanguage: String?
 )
 
 //Base URL :https://raw.githubusercontent.com/atilsamancioglu/IA19-DataSetCountries/master/countrydataset.json
