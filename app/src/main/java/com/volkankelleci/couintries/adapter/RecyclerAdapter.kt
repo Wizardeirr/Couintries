@@ -5,8 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.volkankelleci.couintries.Model.Country
 import com.volkankelleci.couintries.R
+import com.volkankelleci.couintries.Utility.glideileResimAl
 import com.volkankelleci.couintries.View.UlkelerFragment
 import com.volkankelleci.couintries.View.UlkelerFragmentDirections
 import kotlinx.android.synthetic.main.fragment_ulkeler_detay.view.*
@@ -30,6 +32,10 @@ class RecyclerAdapter(val CountryList: ArrayList<Country>) :
         holder.itemView.setOnClickListener{
             val action=UlkelerFragmentDirections.actionUlkelerFragmentToUlkelerDetayFragment()
             Navigation.findNavController(it).navigate(action)
+        }
+        CountryList[position].imageURL?.let {
+            holder.itemView.countryimageinrecycler.glideileResimAl(it,
+                CircularProgressDrawable(holder.itemView.context))
         }
 
 

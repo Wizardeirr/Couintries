@@ -3,11 +3,9 @@ package com.volkankelleci.couintries.ViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.volkankelleci.couintries.Model.Country
-import com.volkankelleci.couintries.service.UlkelerRetrofit
+import com.volkankelleci.couintries.service.CountriesRetrofit
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import io.reactivex.disposables.Disposables
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
@@ -17,7 +15,7 @@ class UlkelerFragmentViewModel:ViewModel() {
     val countryError=MutableLiveData<Boolean>()
     val countryLoading=MutableLiveData<Boolean>()
 
-    private val CountryAPIservice= UlkelerRetrofit()
+    private val CountryAPIservice= CountriesRetrofit()
     private val disposable= CompositeDisposable()
 
     fun refreshData(){
