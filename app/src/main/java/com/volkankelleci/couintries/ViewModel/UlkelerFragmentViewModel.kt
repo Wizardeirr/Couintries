@@ -2,7 +2,6 @@ package com.volkankelleci.couintries.ViewModel
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.volkankelleci.couintries.Model.Country
 import com.volkankelleci.couintries.service.CountriesRetrofit
 import com.volkankelleci.couintries.service.CountryDataBase
@@ -56,7 +55,19 @@ class UlkelerFragmentViewModel(application: Application):CoroutineBaseViewModel(
     private fun storeInSQL(list:List<Country>){
 
             launch {
+
+                val dao=CountryDataBase(getApplication()).countryDAO() //Dao oluşturdum
+                dao.deleteAllCountry() //veritabanında daha önce bir şey varsa sildim
+                val uuidListesi=dao.insertAll(*list.toTypedArray()) // internetten aldığım verileri veritabanına ekledim
+
+// o bana geriye 1 id listesi verdi, o ID listesini alıp Modeldeki idlere tek tek eşitledim
+                var i = 0
+                while (i < list.size){
+                    list[i].uuid=uuidListesi[i].toInt()
+                    i=i+1
+                }
             }
+        showCountries(list)
 
 
     }
