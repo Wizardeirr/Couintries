@@ -1,15 +1,18 @@
 package com.volkankelleci.couintries.ViewModel
 
+import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.volkankelleci.couintries.Model.Country
 import com.volkankelleci.couintries.service.CountriesRetrofit
+import com.volkankelleci.couintries.service.CountryDataBase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 
-class UlkelerFragmentViewModel:ViewModel() {
+class UlkelerFragmentViewModel(application: Application):CoroutineBaseViewModel(application) {
 
     val countries= MutableLiveData<List<Country>>()
     val countryError=MutableLiveData<Boolean>()
@@ -29,9 +32,8 @@ class UlkelerFragmentViewModel:ViewModel() {
                     observeOn(AndroidSchedulers.mainThread()).
                     subscribeWith(object:DisposableSingleObserver<List<Country>>(){
                         override fun onSuccess(t: List<Country>) {
-                            countries.value=t
-                            countryError.value=false
-                            countryLoading.value=false
+
+                            storeInSQL(t)
                         }
 
                         override fun onError(e: Throwable) {
@@ -44,6 +46,28 @@ class UlkelerFragmentViewModel:ViewModel() {
         )
 
 
+
+    }
+    private fun showCountries(countryList:List<Country>){
+        countries.value=countryList
+        countryError.value=false
+        countryLoading.value=false
+    }
+    private fun storeInSQL(list:List<Country>){
+        launch {
+            launch {
+                val dao=CountryDataBase(getApplication()).countryDAO() //Dao oluşturdum
+                dao.deleteAllCountry() //veritabanında daha önce bir şey varsa sildim
+                val uuidListesi=dao.insertAll(*list.toTypedArray()) // internetten aldığım verileri veritabanına ekledim
+
+// o bana geriye 1 id listesi verdi, o ID listesini alıp Modeldeki idlere tek tek eşitledim
+                var i = 0
+                while (i < list.size){
+                    list[i].uuid=uuidListesi[i].toInt()
+                    i=i+1
+                }
+            }
+        }
 
     }
 }
