@@ -1,8 +1,10 @@
 package com.volkankelleci.couintries.ViewModel
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.volkankelleci.couintries.Model.Country
+import com.volkankelleci.couintries.Utility.CustomSharedPreferences
 import com.volkankelleci.couintries.service.CountriesRetrofit
 import com.volkankelleci.couintries.service.CountryDataBase
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -13,15 +15,32 @@ import kotlinx.coroutines.launch
 
 class UlkelerFragmentViewModel(application: Application):CoroutineBaseViewModel(application) {
 
+
+    private val CountryAPIservice= CountriesRetrofit()
+    private val disposable= CompositeDisposable()
+    private var customSharedPreferences=CustomSharedPreferences(getApplication())
+    private var refreshTime=10 * 60 * 1000 * 1000 * 1000L
+
     val countries= MutableLiveData<List<Country>>()
     val countryError=MutableLiveData<Boolean>()
     val countryLoading=MutableLiveData<Boolean>()
 
-    private val CountryAPIservice= CountriesRetrofit()
-    private val disposable= CompositeDisposable()
 
     fun refreshData(){
-        getDataFromAPI()
+        val updateTime=customSharedPreferences.getTime()
+        if (updateTime!=null && updateTime !=0L &&System.nanoTime()-updateTime<refreshTime){
+            getDataFromSQLite()
+        }else{
+            getDataFromAPI()
+        }
+
+    }
+    private fun getDataFromSQLite(){
+        launch {
+            val countries=CountryDataBase(getApplication()).countryDAO().getAllCountries()
+            showCountries(countries)
+            Toast.makeText(getApplication(),"CountriesFromSQL",Toast.LENGTH_LONG).show()
+        }
     }
     private fun getDataFromAPI(){
         countryLoading.value=true
@@ -31,8 +50,8 @@ class UlkelerFragmentViewModel(application: Application):CoroutineBaseViewModel(
                     observeOn(AndroidSchedulers.mainThread()).
                     subscribeWith(object:DisposableSingleObserver<List<Country>>(){
                         override fun onSuccess(t: List<Country>) {
-
                             storeInSQL(t)
+                            Toast.makeText(getApplication(),"CountriesFromAPI",Toast.LENGTH_LONG).show()
                         }
 
                         override fun onError(e: Throwable) {
@@ -69,8 +88,9 @@ class UlkelerFragmentViewModel(application: Application):CoroutineBaseViewModel(
             }
         showCountries(list)
 
-
+        customSharedPreferences.saveTime(System.nanoTime())
     }
+
 }
 
 
