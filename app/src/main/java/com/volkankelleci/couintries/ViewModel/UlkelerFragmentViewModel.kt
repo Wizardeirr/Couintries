@@ -54,20 +54,10 @@ class UlkelerFragmentViewModel(application: Application):CoroutineBaseViewModel(
         countryLoading.value=false
     }
     private fun storeInSQL(list:List<Country>){
-        launch {
-            launch {
-                val dao=CountryDataBase(getApplication()).countryDAO() //Dao oluşturdum
-                dao.deleteAllCountry() //veritabanında daha önce bir şey varsa sildim
-                val uuidListesi=dao.insertAll(*list.toTypedArray()) // internetten aldığım verileri veritabanına ekledim
 
-// o bana geriye 1 id listesi verdi, o ID listesini alıp Modeldeki idlere tek tek eşitledim
-                var i = 0
-                while (i < list.size){
-                    list[i].uuid=uuidListesi[i].toInt()
-                    i=i+1
-                }
+            launch {
             }
-        }
+
 
     }
 }
