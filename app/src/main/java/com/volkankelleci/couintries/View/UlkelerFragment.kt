@@ -34,6 +34,7 @@ class UlkelerFragment : Fragment() {
 
         super.onViewCreated(view, savedInstanceState)
 
+
         viewModel = ViewModelProviders.of(this).get(UlkelerFragmentViewModel::class.java)
         viewModel.refreshData()
 

@@ -2,13 +2,12 @@ package com.volkankelleci.couintries.Utility
 
 import android.content.Context
 import android.widget.ImageView
-import androidx.constraintlayout.widget.Placeholder
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.volkankelleci.couintries.R
 
-fun ImageView.glideileResimAl(url:String,progressDrawable: CircularProgressDrawable){
+fun ImageView.glideileResimAl(url:String, progressDrawable: CircularProgressDrawable){
 
     val options=RequestOptions()
         .placeholder(progressDrawable)
@@ -17,9 +16,6 @@ fun ImageView.glideileResimAl(url:String,progressDrawable: CircularProgressDrawa
     Glide.with(context)
         .load(url)
         .into(this)
-
-
-
 
 }
 fun placeHolderYap(context: Context):CircularProgressDrawable {

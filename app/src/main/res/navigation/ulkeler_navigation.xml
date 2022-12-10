@@ -14,5 +14,10 @@
     <fragment
         android:id="@+id/ulkelerDetayFragment"
         android:name="com.volkankelleci.couintries.View.UlkelerDetayFragment"
-        android:label="UlkelerDetayFragment" />
+        android:label="UlkelerDetayFragment" >
+        <argument
+            android:name="uuid"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>

@@ -27,6 +27,7 @@ class UlkelerFragmentViewModel(application: Application):CoroutineBaseViewModel(
 
 
     fun refreshData(){
+        countryLoading.value=true
         val updateTime=customSharedPreferences.getTime()
         if (updateTime!=null && updateTime !=0L &&System.nanoTime()-updateTime<refreshTime){
             getDataFromSQLite()
