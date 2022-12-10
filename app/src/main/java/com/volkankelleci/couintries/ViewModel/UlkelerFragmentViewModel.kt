@@ -92,6 +92,11 @@ class UlkelerFragmentViewModel(application: Application):CoroutineBaseViewModel(
         customSharedPreferences.saveTime(System.nanoTime())
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
+    }
+
 }
 
 
